@@ -1,14 +1,49 @@
 const express = require('express');
-const PORT = 3000;
+const port = 3000;
+const apiUrl = 'http://localhost:';
 // instanciation d'express
 const app = express();
+
+// require dotenv pour variables d'environnemnt
+require('dotenv').config();
 
 // appel au fichier data json
 const conversations = require ("./conversations.json");
 const messages = require ("./messages.json");
 
+// constantes
+PORT = process.env.PORT || port;
+API_URL = process.env.API_URL || apiUrl;
+
 // middleware pour interpréter le body de la reqûete
 app.use(express.json());
+
+// middleware pour nos en-tetes de requetes
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+    next();
+});
+
+// Page d'accueil du serveur : GET /
+app.get('/', (req, res) => {
+    res.send(`
+      <div style="margin: 5em auto; max-width: 600px; width: auto; line-height: 1.5">
+        <h1 style="text-align: center">Hello!</h1>
+        <p>Le serveur est bien lancé !!</p>
+        <div>On peut utiliser l'API</div>
+        <ul style="display: inline-block; margin-top: .2em">
+          <li><code>GET ${API_URL}${PORT}/conversations</code></li>
+          <li><code>GET ${API_URL}${PORT}/conversations/:id/messages</code></li>
+          <li><code>POST ${API_URL}${PORT}/conversations</code></li>
+          <li><code>POST ${API_URL}${PORT}/conversations/:id/messages</code></li>
+          <li><code>PUT ${API_URL}${PORT}/conversations/:id</code></li>
+          <li><code>DELETE ${API_URL}${PORT}/conversations/:id</code></li>
+        </ul>
+      </div>
+    `);
+  });
 
 // route récupération des conversations
 app.get('/conversations', (req, res) => {
