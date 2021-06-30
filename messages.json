@@ -1,0 +1,17 @@
+[
+    {
+        "id":1,
+        "content": "Bonjour, comment allez-vous ?",
+        "conversationId": 1
+    },
+    {
+        "id":2,
+        "content": "Que puis-je faire pour vous ?",
+        "conversationId": 1
+    },
+    {
+        "id":3,
+        "content": "La longueur de cette clio est de 4,30m",
+        "conversationId": 2
+    }
+]
