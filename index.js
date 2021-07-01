@@ -67,8 +67,8 @@ app.post('/conversations', (req,res) => {
         id: maxIdConversation+1,
         name: req.body.name
     });
-    res.status(200).json(conversations);
-    console.log(conversations);
+    const lastItem = conversations[conversations.length-1]
+    res.status(200).json(lastItem);
 })
 // route modification d'une une conversation
 app.put('/conversations/:id', (req,res) => {
