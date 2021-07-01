@@ -65,7 +65,8 @@ app.post('/conversations', (req,res) => {
     });
     conversations.push({
         id: maxIdConversation+1,
-        name: req.body.name
+        name: req.body.name,
+        archived: false
     });
     const lastItem = conversations[conversations.length-1]
     res.status(200).json(lastItem);
