@@ -35,6 +35,7 @@ app.get('/', (req, res) => {
         <div>On peut utiliser l'API</div>
         <ul style="display: inline-block; margin-top: .2em">
           <li><code>GET ${API_URL}${PORT}/conversations</code></li>
+          <li><code>GET ${API_URL}${PORT}/messages</code></li>
           <li><code>GET ${API_URL}${PORT}/conversations/:id/messages</code></li>
           <li><code>POST ${API_URL}${PORT}/conversations</code></li>
           <li><code>POST ${API_URL}${PORT}/conversations/:id/messages</code></li>
@@ -48,6 +49,10 @@ app.get('/', (req, res) => {
 // route récupération des conversations
 app.get('/conversations', (req, res) => {
     res.status(200).json(conversations);
+})
+// route récupération des messages
+app.get('/messages', (req, res) => {
+    res.status(200).json(messages);
 })
 // route récupération d'une conversation
 app.get('/conversations/:id', (req,res) => {
