@@ -22,7 +22,7 @@ app.use(express.json());
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     next();
 });
 
@@ -39,7 +39,7 @@ app.get('/', (req, res) => {
           <li><code>GET ${API_URL}${PORT}/conversations/:id/messages</code></li>
           <li><code>POST ${API_URL}${PORT}/conversations</code></li>
           <li><code>POST ${API_URL}${PORT}/conversations/:id/messages</code></li>
-          <li><code>PUT ${API_URL}${PORT}/conversations/:id</code></li>
+          <li><code>PATCH ${API_URL}${PORT}/conversations/:id</code></li>
           <li><code>DELETE ${API_URL}${PORT}/conversations/:id</code></li>
         </ul>
       </div>
@@ -77,11 +77,11 @@ app.post('/conversations', (req,res) => {
     res.status(200).json(lastItem);
 })
 // route modification d'une une conversation
-app.put('/conversations/:id', (req,res) => {
+app.patch('/conversations/:id', (req,res) => {
     const id = parseInt(req.params.id);
     const conversation = conversations.find(conversation => conversation.id === id);
-    conversation.name =req.body.name,
-    res.status(200).json(conversation);
+    conversation.archived =req.body.archived,
+    res.status(200).json(conversations);
 })
 // route suppression d'une conversation
 app.delete('/conversations/:id', (req,res) => {
