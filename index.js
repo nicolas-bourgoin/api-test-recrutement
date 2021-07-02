@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const port = 3000;
 const apiUrl = 'http://localhost:';
 // instanciation d'express
@@ -18,11 +19,17 @@ API_URL = process.env.API_URL || apiUrl;
 // middleware pour interpréter le body de la reqûete
 app.use(express.json());
 
-// middleware pour nos en-tetes de requetes
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+app.use(cors());
+
+app.use(function(req, res, next) {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Credentials", "true ");
+    res.setHeader("Access-Control-Allow-Methods","GET,HEAD,OPTIONS,POST,PUT,PATCH,DELETE");
+    res.setHeader("Access-Control-Allow-Headers","Origin,Cache -Control,Accept,X-Access-Token ,X-Requested-With, Content-Type, Access-Control-Request-Method"
+);
+    if (req.method === "OPTIONS") {
+    return res.status (200 ).end();
+    }
     next();
 });
 
